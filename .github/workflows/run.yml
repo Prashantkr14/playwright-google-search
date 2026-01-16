@@ -1,44 +1,35 @@
-name: Google Search Automation
-
-on:
-"  push:"
-"    branches: "
-"      - main"
-"  workflow_dispatch:"
-
-jobs:
-"  test:"
-"    runs-on: ubuntu-latest"
-"    "
-"    steps:"
-"    - name: Checkout code"
-"      uses: actions/checkout@v4"
-"    "
-"    - name: Setup Python"
-"      uses: actions/setup-python@v4"
-"      with:"
-"        python-version: '3.10'"
-"    "
-"    - name: Install dependencies"
-"      run: |"
-"        pip install --upgrade pip"
-"        cd playwright-tests"
-"        pip install -r requirements.txt"
-"    "
-"    - name: Install Playwright browsers"
-"      run: |"
-"        playwright install chromium"
-"    "
-"    - name: Run Google Search Automation"
-"      continue-on-error: true"
-"      run: |"
-"        cd playwright-tests"
-"        python simple_search.py"
-"    "
-"    - name: Upload Screenshots"
-"      if: always()"
-"      uses: actions/upload-artifact@v4"
-"      with:"
-"        name: search-results"
-"        path: playwright-tests/*.png"
-"        retention-days: 7"
+name: Google Search Automation 
+ 
+on: [push, workflow_dispatch] 
+ 
+jobs: 
+"  test:" 
+"    runs-on: ubuntu-latest" 
+"    steps:" 
+"    - uses: actions/checkout@v4" 
+ 
+"    - name: Setup Python" 
+"      uses: actions/setup-python@v4" 
+"      with:" 
+"        python-version: '3.10'" 
+ 
+"    - name: Install dependencies" 
+"      run: |" 
+"        pip install -r playwright-tests/requirements.txt" 
+ 
+"    - name: Install Playwright" 
+"      run: |" 
+"        playwright install chromium" 
+ 
+"    - name: Run automation" 
+"      continue-on-error: true" 
+"      run: |" 
+"        cd playwright-tests" 
+"        python simple_search.py" 
+ 
+"    - name: Upload results" 
+"      if: always()" 
+"      uses: actions/upload-artifact@v4" 
+"      with:" 
+"        name: results" 
+"        path: playwright-tests/*.png" 
