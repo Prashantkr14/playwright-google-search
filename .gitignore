@@ -1,0 +1,14 @@
+
+echo # Backup files >> .gitignore
+echo *.bak >> .gitignore
+echo *.tmp >> .gitignore
+echo *~ >> .gitignore
+echo >> .gitignore
+echo # Python cache >> .gitignore
+echo __pycache__/ >> .gitignore
+echo *.pyc >> .gitignore
+echo >> .gitignore
+echo # Virtual environments >> .gitignore
+echo venv/ >> .gitignore
+echo .venv/ >> .gitignore
+echo env/ >> .gitignore

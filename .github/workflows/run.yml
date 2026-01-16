@@ -1,0 +1,44 @@
+echo name: Google Search Automation > .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo on: >> .github\workflows\run.yml
+echo "  push:" >> .github\workflows\run.yml
+echo "    branches: [ main ]" >> .github\workflows\run.yml
+echo "  workflow_dispatch:" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo jobs: >> .github\workflows\run.yml
+echo "  test:" >> .github\workflows\run.yml
+echo "    runs-on: ubuntu-latest" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo "    steps:" >> .github\workflows\run.yml
+echo "    - uses: actions/checkout@v4" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo "    - name: Setup Python" >> .github\workflows\run.yml
+echo "      uses: actions/setup-python@v4" >> .github\workflows\run.yml
+echo "      with:" >> .github\workflows\run.yml
+echo "        python-version: '3.10'" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo "    - name: Install dependencies" >> .github\workflows\run.yml
+echo "      run: |" >> .github\workflows\run.yml
+echo "        pip install --upgrade pip" >> .github\workflows\run.yml
+echo "        cd playwright-tests" >> .github\workflows\run.yml
+echo "        pip install -r requirements.txt" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo "    - name: Install Playwright browsers" >> .github\workflows\run.yml
+echo "      run: |" >> .github\workflows\run.yml
+echo "        playwright install chromium" >> .github\workflows\run.yml
+echo "        playwright install-deps" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo "    - name: Run Google Search Automation" >> .github\workflows\run.yml
+echo "      continue-on-error: true" >> .github\workflows\run.yml
+echo "      run: |" >> .github\workflows\run.yml
+echo "        cd playwright-tests" >> .github\workflows\run.yml
+echo "        python simple_search.py" >> .github\workflows\run.yml
+echo. >> .github\workflows\run.yml
+echo "    - name: Upload Screenshots" >> .github\workflows\run.yml
+echo "      uses: actions/upload-artifact@v4" >> .github\workflows\run.yml
+echo "      if: always()" >> .github\workflows\run.yml
+echo "      with:" >> .github\workflows\run.yml
+echo "        name: search-results" >> .github\workflows\run.yml
+echo "        path: |" >> .github\workflows\run.yml
+echo "          playwright-tests/*.png" >> .github\workflows\run.yml
+echo "        retention-days: 7" >> .github\workflows\run.yml
